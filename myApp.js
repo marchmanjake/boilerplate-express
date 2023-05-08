@@ -1,8 +1,21 @@
 let express = require('express');
+let bodyParser = require('body-parser');
 let app = express();
+let parserFunction = bodyParser.urlencoded({extended: false});
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
+app.route("/name")
+  .get(function(req,res,next){
+    res.json({"name":req.query.first+" "+req.query.last})
+  }
+  )
+  .post(function(req,res,next){
+    res.json({"name":req.body.first+" "+req.body.last})
+  })
 
 app.get("/:word/echo", function(req,res,next){
-  console.log(req.params.word)
   res.json({"echo":req.params.word})
 })
 
